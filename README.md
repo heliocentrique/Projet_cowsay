@@ -1,6 +1,7 @@
 
-##Projet INF203 en L1 informatique UGA : Projet cowsay.
-##INF203 project, L1 COmputer Science at UGA : Projet cowsay.
+#Projet INF203 en L1 informatique UGA : Projet cowsay.
+
+#INF203 project, L1 COmputer Science at UGA : Projet cowsay.
 
 
 Projet illustrant la transition du scripting Bash (automatisation et calculs) vers la programmation système en C (gestion d'arguments et animations).
