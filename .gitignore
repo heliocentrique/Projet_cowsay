@@ -1,0 +1,6 @@
+#Ignorer les exécutables compilés
+*.out
+main
+tamagoshi
+a.out
+.DS_Store

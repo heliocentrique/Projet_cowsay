@@ -1,0 +1,28 @@
+#!/bin/sh
+
+i=0
+n=$1
+b=1
+k=1
+while [ $k -lt $n ]
+do
+	i=$(expr $i + 1) #Compteur 
+
+	if [ $i -lt 3 ]
+	then 
+		k=1
+	else
+		a=$b
+		b=$k
+		k=$(expr $a + $b)
+	fi
+	
+	if [ $k -lt $n ] #Condition de fin
+	then
+		cowsay  $k
+	else
+		break
+	fi
+	sleep 1
+	clear
+done

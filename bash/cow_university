@@ -1,0 +1,38 @@
+#!/bin/bash 
+
+n=$1
+i=1
+
+if [ $n -gt 1 ]
+then
+	while [ $i -lt $n ]
+	do
+		j=2
+		tmp=2
+		while [ $j -lt $i ]
+		do
+			if [ $(($i % $j)) -eq 0 ]
+			then
+				break     #Nombre non premier
+			else
+				tmp=$(expr $tmp + 1)
+			fi
+			
+			j=$(expr $j + 1) #Compteur 
+			if [ $tmp -eq $i ] #Si nombre premier
+			then
+				cowsay $i
+				sleep 1
+			fi
+		done
+		
+		
+		if [ $i -eq 2 ]   #Cas spécial si n == 2
+		then
+			cowsay $i
+			sleep 1
+		fi
+		i=$(expr $i + 1) #Compteur 
+	done
+
+fi

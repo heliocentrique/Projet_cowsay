@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+void update()  // Fonction pour effacer l'écran
+{
+    printf("\033[H\033[J");
+}
+// Fonction pour afficher la vache avec les paramètres donnés
+void affiche_vache(int tail, int hauteur, char *yeux, char *tete, char *bouche)
+{
+    update();
+    sleep(1);
+    printf("---------\n  %s \n--------\n\\"  , tete);  //affichage du texte dans la bulle
+    printf("\n^__^\n");                // afichage du corp
+    printf("(%s)\\_______\n", yeux); // afichage du corp et des yeux qui sont modifier
+    printf("(__)\\        )");       // afichage du corp
+    for (int i = 0; i < tail; i++)
+    {
+        printf("-"); // afichage de la queue
+    }
+    printf("\n%s  ||-------w|\n", bouche); // affiche les jambe et du caractere dans la gueule de la vache
+    for (int i = 0; i < hauteur; i++)
+    {
+        printf("   ||       ||\n");
+    } // affiche les jambe
+}
+
+int main(int argc, char *argv[])
+
+{
+    char *yeux = "oo";    // valeur par défaut pour les yeux
+    char file[1024] = ""; // valeur par défaut pour le contenu du fichier
+    int tail = 2;         // valeur par défaut pour la queue
+    int hauteur = 1;      // valeur par défaut pour la hauteur
+    const char *filename = NULL;  // Initialisation du nom de fichier à NULL
+
+    for (int i = 1; i < argc; i++)
+    {
+        if ((strcmp(argv[i], "-e") == 0 || strcmp(argv[i], "--eyes") == 0) && i + 1 < argc)
+        {
+            yeux = argv[i + 1];
+        }
+        if ((strcmp(argv[i], "-t") == 0 || strcmp(argv[i], "--tail") == 0) && i + 1 < argc)
+        {
+            tail = atoi(argv[i + 1]);
+        }
+        if ((strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--hauteur") == 0) && i + 1 < argc)
+        {
+            hauteur = atoi(argv[i + 1]);
+        }
+
+        if ((strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--file") == 0) && i + 1 < argc)
+        {
+            filename = argv[i + 1];  //Recupere le nom du fichier
+        }
+    }
+
+    if (filename != NULL)  //lecture du fichier dans ce if   //Si un fichier est specifie
+{
+    FILE *f = fopen(filename, "r");  //Ouvre le fichier en mode lecture
+    if (f != NULL)
+    {
+        fread(file, sizeof(char), sizeof(file) - 1, f);  //stockage du fichier dans une variable
+        fclose(f);
+    }
+    int len = strlen(file);   //calcule la longueur du contenu du fichier
+
+    char texte[1024] = "";//Déclaration de la variable texte qui contiendra petit a petit le textedufichier
+    for (int i = 0; i <= len - 5; i += 5) // Parcours le contenu du fichier par blocs de 5 caractères
+    {
+        char yeux_tete_bouche[3][3] = {{'\0'}, {'\0'}, {'\0'}};//stockage des caractere qui seront afficher
+        // Copie les blocs de caractères du fichier dans la matrice
+        strncpy(yeux_tete_bouche[0], file + i, 2);  // en fonction de l’induce i on recupere la portion qui
+							// qui nous interesse
+        strncpy(yeux_tete_bouche[1], file + i + 2, 2);
+        strncpy(yeux_tete_bouche[2], file + i + 4, 1);
+
+        yeux_tete_bouche[0][2] = '\0';
+        yeux_tete_bouche[1][2] = '\0';
+        yeux_tete_bouche[2][1] = '\0';
+        // Concatène les blocs de caractères dans la variable 'texte'
+strncat(texte, yeux_tete_bouche[0], 2);  // concatenation pour afficher tout le texte
+
+        affiche_vache(tail, hauteur, yeux_tete_bouche[1], texte, yeux_tete_bouche[2]);
+
+        strncat(texte, yeux_tete_bouche[1], 2);
+        strncat(texte, yeux_tete_bouche[2], 1);
+    }
+}
+    return 0;
+}
+

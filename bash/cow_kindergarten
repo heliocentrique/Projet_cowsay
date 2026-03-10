@@ -1,0 +1,15 @@
+#!/bin/bash cow_kindergarten
+
+i=0
+while [ $i -lt 10 ]
+do
+	i=$(expr $i + 1)
+	if [ $i -eq 10 ]
+	then
+		cowsay -s $i
+	else
+		cowsay $i
+	fi
+	sleep 1
+	clear
+done

@@ -1,0 +1,9 @@
+#!/bin/bash 
+
+var=$1
+v1=$(printf '%s\n' "$var" | cut -c1)
+op=$(printf '%s\n' "$var" | cut -c2)
+v2=$(printf '%s\n' "$var" | cut -c3)
+
+v=$(expr $v1 $op $v2)
+cowsay -e $v $1

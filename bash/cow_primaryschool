@@ -1,0 +1,16 @@
+#!/bin/bash
+
+i=0
+n=$1
+while [ $i -lt $n ]
+do
+	i=$(expr $i + 1)
+	if [ $i -eq $n ]
+	then
+		cowsay -s $i
+	else
+		cowsay $i
+	fi
+	sleep 1
+	clear
+done	

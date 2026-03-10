@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#Introduction du jeu :
+
+cowsay -e OO 'JEU DE LA VACHE :       
+Tappez un nombre entre 0 et 100, si un renard apparait donc le nombre est plus petit que le nombre tape, et si un drangon apparait donc le nombre est plus grand que le nombre tape. Si jamais vous abandonnez, tapez -1.
+BONNE CHANCE ! Tapez un nombre pour commencer : '
+
+#Introduction des variables : 
+cpt=0
+nb=$(( RANDOM % 100 + 0 ))
+
+
+#Debut du jeu: 
+read guess
+
+#Calcul de la chance en utilisant ' l'input ' avant d'entrer dans la boucle
+chance=$(expr 100 / $guess)
+tik=$(expr 100 - $guess)
+chancee=$(expr 100 / $tik) 
+
+while [ $guess -ne $nb ]
+do
+      cpt=$(expr $cpt + 1)
+      
+      if [ $guess -gt $nb ]
+      then 
+      cowsay -f fox 'Le nombre que vous avez tapez est tres grand. La chance que votre prochain essai soi juste est de '$chance '% (arondi).Retapez un nombre : '
+      
+      elif [ $guess -eq -1 ]          #Pour sortir du jeu
+      then break      
+                                    
+      else cowsay -f dragon 'Le nombre que vous avez tapez est tres petit. La chance que votre prochain essai soi juste est de ' $chancee '% (arrondi).Retaper un nombre : '
+      
+      fi
+      read guess
+      
+      #Calcul de la chance en utilisant ' l'input ' dans la boucle
+      chance=$(expr 100 / $guess)
+      tik=$(expr 100 - $guess)
+      chancee=$(expr 100 / $tik) 
+done
+if [ $guess -ne -1 ]
+then cowsay -e GG "BRAVO! Vous avez trouve le nombre secret en " $cpt "essais."  #Cas ou le joueur a trouve le nombre secret
+else cowsay -s "PERDANT! Vous avez pas pu gagne le jeu de la vache :/" #Cas ou le joueur est sorti du jeu
+fi

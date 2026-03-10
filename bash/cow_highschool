@@ -1,0 +1,17 @@
+#!/bin/bash
+
+i=0
+n=$1
+while [ $i -lt $n ]
+do
+	i=$(expr $i + 1)
+	a=$(expr "$i" '*' "$i") #Solution temporaire ($i * $i ne marche pas ?)
+	if [ $i -eq $n ]
+	then
+		cowsay -s $a
+	else
+		cowsay $a
+	fi
+	sleep 1
+	clear
+done
